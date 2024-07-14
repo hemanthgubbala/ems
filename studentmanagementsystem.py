@@ -5,7 +5,7 @@ from datetime import datetime
 con = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="password",
+    password="Hemanth@9982",
     database="student_management_sys"
 )
 
@@ -104,8 +104,10 @@ def update_student():
         con.rollback()
 
 # Function to search for a student
-def search_student():
-    student_id = input("Enter Student Id: ")
+def search_student(student_id=None):
+    if student_id is None:
+        student_id = input("Enter Student Id: ")
+        
     if not check_student(student_id):
         print("Student does not exist. Please try again.")
         return
@@ -261,7 +263,14 @@ def generate_student_report():
     for record in fees_records:
         print(f"Amount: {record[1]}, Date: {record[2]}")
 
-# Function to display the menu
+# Function to exit the program
+def exit_program():
+    print("Exiting the program...")
+    cursor.close()
+    con.close()
+    exit()
+
+# Main menu function
 def menu():
     options = {
         '1': add_student,
@@ -298,13 +307,14 @@ def menu():
 
         action = options.get(choice)
         if action:
-            action()
+            if choice == '5':
+                student_id = input("Enter Student Id: ")
+                action(student_id)
+            else:
+                action()
         else:
             print("Invalid Choice! Please try again.")
 
-def exit_program():
-    print("Exiting the program. Goodbye!")
-    con.close()
-
+# Run the menu function
 if __name__ == "__main__":
     menu()
