@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS student_management;
+CREATE DATABASE IF NOT EXISTS student_management_sys;
 USE student_management;
 
 CREATE TABLE IF NOT EXISTS students (
